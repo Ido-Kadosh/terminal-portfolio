@@ -2,9 +2,12 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
+		fontFamily: {
+			josefin: ['Josefin Sans', 'sans-serif'],
+		},
 		extend: {
 			backgroundImage: {
-				main: "url('assets/img/background.jpg')",
+				main: "url('src/assets/img/background.jpg')",
 			},
 		},
 	},
