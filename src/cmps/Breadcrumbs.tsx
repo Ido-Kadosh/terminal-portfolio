@@ -1,11 +1,10 @@
 import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
-import CommandResult from './CommandResult';
-import { ICommand } from './Terminal';
-
 import ArrowIcon from '../assets/icons/arrow.svg?react';
 import CloverIcon from '../assets/icons/clover.svg?react';
-import FolderIcon from '../assets/icons/folder.svg?react';
 import CommandIcon from '../assets/icons/command.svg?react';
+import FolderIcon from '../assets/icons/folder.svg?react';
+import CommandResult from './CommandResult';
+import { ICommand } from './Terminal';
 interface PropTypes {
 	showInput?: boolean;
 	command?: ICommand;
@@ -58,7 +57,7 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 	};
 
 	return (
-		<section className="my-2">
+		<section className="my-4">
 			<div className="flex items-center">
 				<div className="w-5 h-1 bg-blue-600"></div>
 				<div className="flex gap-1 items-center bg-green-700 ps-2">
