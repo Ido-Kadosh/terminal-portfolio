@@ -2,7 +2,7 @@ import { ICommand } from './Terminal';
 
 const CommandResult = ({ command }: { command: ICommand }) => {
 	const renderComponent = () => {
-		switch (command.txt) {
+		switch (command.txt.toLowerCase()) {
 			case 'help':
 				return <Help />;
 			case 'bio':
