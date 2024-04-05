@@ -1,7 +1,11 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
-import { ICommand } from './Terminal';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 import CommandResult from './CommandResult';
+import { ICommand } from './Terminal';
 
+import ArrowIcon from '../assets/icons/arrow.svg?react';
+import CloverIcon from '../assets/icons/clover.svg?react';
+import FolderIcon from '../assets/icons/folder.svg?react';
+import CommandIcon from '../assets/icons/command.svg?react';
 interface PropTypes {
 	showInput?: boolean;
 	command?: ICommand;
@@ -58,18 +62,21 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 			<div className="flex items-center">
 				<div className="w-5 h-1 bg-blue-600"></div>
 				<div className="flex gap-1 items-center bg-green-700 ps-2">
+					<CloverIcon />
 					<span>idokadosh</span>
 				</div>
 				<div className="w-5 h-7 z-10 bg-green-700 triangle"></div>
 				<div className="flex items-center text-black">
-					<div className="bg-blue-400 ps-8 -translate-x-5 pe-1">
+					<div className="flex gap-1 items-center bg-blue-400 ps-8 -translate-x-5 pe-1">
+						<FolderIcon />
 						<span>/portfolio</span>
 					</div>
 					<div className="w-5 h-7 z-10 -translate-x-5 bg-blue-400 triangle border-l border-blue-400"></div>
 				</div>
 				{command && (
 					<div className="flex items-center text-black">
-						<div className="bg-yellow-400 ps-8 -translate-x-10 pe-1">
+						<div className="flex gap-1 items-center bg-yellow-400 ps-8 -translate-x-10 pe-1">
+							<CommandIcon />
 							<span>{command.txt}</span>
 						</div>
 						<div className="w-5 h-7 z-10 -translate-x-10 bg-yellow-400 triangle border-l border-yellow-400"></div>
@@ -79,16 +86,7 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 			<div className="flex items-center w-full">
 				<div className="h-10 w-1 bg-blue-600 -translate-y-3"></div>
 				<div className="h-1 w-4 bg-blue-600 translate-y-2 -translate-x-1 "></div>
-				<svg
-					fill="currentColor"
-					strokeWidth="0"
-					viewBox="0 0 6 16"
-					className="text-2xl text-blue-500 -translate-x-3 translate-y-2"
-					height="1em"
-					width="1em"
-				>
-					<path fillRule="evenodd" d="M0 14l6-6-6-6v12z"></path>
-				</svg>
+				<ArrowIcon className="text-2xl text-blue-500 -translate-x-3 translate-y-2" />
 				<div className="self-end flex-1">
 					{showInput && (
 						<input
@@ -100,7 +98,7 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 						></input>
 					)}
 					{command && (
-						<div className="flex justify-between items-end">
+						<div className="flex justify-between items-end ">
 							<span>{command.txt}</span>
 							<span className="me-3 text-sm">{getFormattedTime(command.time)}</span>
 						</div>
