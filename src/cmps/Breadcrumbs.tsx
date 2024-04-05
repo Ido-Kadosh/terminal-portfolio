@@ -28,6 +28,7 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 		if (!elInput.current) return;
 		const command = elInput.current.value;
 		if (!command) return;
+		elInput.current.value = '';
 		setCommands(prev => [...prev, { txt: command, time: Date.now() }]);
 	};
 
@@ -36,8 +37,8 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 		setCommands([]);
 	};
 
-	const getFormattedTime = () => {
-		const now = new Date();
+	const getFormattedTime = (time: number) => {
+		const now = new Date(time);
 		let hours = now.getHours();
 		const minutes = now.getMinutes();
 		const seconds = now.getSeconds();
@@ -53,19 +54,27 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 	};
 
 	return (
-		<section>
+		<section className="my-2">
 			<div className="flex items-center">
 				<div className="w-5 h-1 bg-blue-600"></div>
 				<div className="flex gap-1 items-center bg-green-700 ps-2">
 					<span>idokadosh</span>
 				</div>
-				<div className="w-5 h-7 z-10 bg-green-700 triangle-clip"></div>
+				<div className="w-5 h-7 z-10 bg-green-700 triangle"></div>
 				<div className="flex items-center text-black">
 					<div className="bg-blue-400 ps-8 -translate-x-5 pe-1">
 						<span>/portfolio</span>
 					</div>
-					<div className="w-5 h-7 z-10 -translate-x-5 bg-blue-400 triangle-clip"></div>
+					<div className="w-5 h-7 z-10 -translate-x-5 bg-blue-400 triangle border-l border-blue-400"></div>
 				</div>
+				{command && (
+					<div className="flex items-center text-black">
+						<div className="bg-yellow-400 ps-8 -translate-x-10 pe-1">
+							<span>{command.txt}</span>
+						</div>
+						<div className="w-5 h-7 z-10 -translate-x-10 bg-yellow-400 triangle border-l border-yellow-400"></div>
+					</div>
+				)}
 			</div>
 			<div className="flex items-center w-full">
 				<div className="h-10 w-1 bg-blue-600 -translate-y-3"></div>
@@ -85,12 +94,17 @@ const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
 						<input
 							ref={elInput}
 							autoFocus
-							className="bg-transparent border-none outline-none text-gray-300 w-full"
+							className="bg-transparent border-none outline-none text-gray-300 w-full placeholder:tracking-wider placeholder:text-gray-600"
 							placeholder="try help, bio, skills, contact, about..."
 							type="text"
 						></input>
 					)}
-					{command && <div>{command.txt}</div>}
+					{command && (
+						<div className="flex justify-between items-end">
+							<span>{command.txt}</span>
+							<span className="me-3 text-sm">{getFormattedTime(command.time)}</span>
+						</div>
+					)}
 				</div>
 			</div>
 			{command && <CommandResult command={command} />}

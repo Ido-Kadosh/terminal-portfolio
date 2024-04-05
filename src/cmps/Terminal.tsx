@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Breadcrumbs from './Breadcrumbs';
 import Toolbar from './Toolbar';
 
@@ -9,6 +9,12 @@ export interface ICommand {
 
 const Terminal = () => {
 	const [commands, setCommands] = useState<ICommand[]>([{ txt: 'help', time: Date.now() }]);
+	const scrollRef = useRef<HTMLDivElement>(null);
+	useLayoutEffect(() => {
+		if (scrollRef.current) {
+			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+		}
+	}, [commands]);
 
 	const getFormattedDate = () => {
 		const date = new Date(); // Today's date
@@ -25,7 +31,10 @@ const Terminal = () => {
 	return (
 		<main className="w-full 2xl:w-1/2 lg:w-2/3 max-w-7xl text-xl to-gray-300 flex flex-col h-1/2 text-gray-300 font-josefin">
 			<Toolbar />
-			<div className="w-full bg-black bg-opacity-70 flex-1 rounded-b-md p-2 border-slate-800 border">
+			<div
+				ref={scrollRef}
+				className="w-full bg-black bg-opacity-70 h-[55vh] overflow-auto hide-scrollbar rounded-b-md p-2 border-slate-800 border"
+			>
 				<h1>Today is {getFormattedDate()}</h1>
 				{commands.map((command, idx) => (
 					<Breadcrumbs key={idx} command={command} setCommands={setCommands} />

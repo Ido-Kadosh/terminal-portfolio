@@ -7,7 +7,7 @@ const Toolbar = () => {
 				<div className="rounded-full w-3 h-3 bg-green-500"></div>
 			</div>
 			<div className="flex-1 flex justify-center me-16">
-				<span className="self-center">Idokadosh/terminal_portfolio</span>
+				<span className="self-center text-base">Idokadosh/terminal_portfolio</span>
 			</div>
 		</div>
 	);
