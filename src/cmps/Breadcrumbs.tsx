@@ -8,36 +8,56 @@ import { ICommand } from './Terminal';
 interface PropTypes {
 	showInput?: boolean;
 	command?: ICommand;
+	commandHistory?: string[];
+	setCommandHistory?: Dispatch<SetStateAction<string[]>>;
 	setCommands: Dispatch<SetStateAction<ICommand[]>>;
 }
 
-const Breadcrumbs = ({ showInput, command, setCommands }: PropTypes) => {
+const Breadcrumbs = ({ showInput, command, commandHistory, setCommands, setCommandHistory }: PropTypes) => {
 	const elInput = useRef<HTMLInputElement>(null);
+	const commandIndex = useRef<number>(0);
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
 			if (!elInput.current) return;
 			elInput.current.focus();
 			if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') clearConsole(e);
-			if (e.key === 'Enter') sendCommand();
+			else if (e.key === 'ArrowUp') restorePreviousCommand(1);
+			else if (e.key === 'ArrowDown') restorePreviousCommand(-1);
+			else if (e.key === 'Enter') sendCommand();
 		};
 
 		if (showInput) document.addEventListener('keydown', handleKeyDown);
 
 		return () => document.removeEventListener('keydown', handleKeyDown);
-	}, []);
+	}, [commandHistory]);
 
 	const sendCommand = () => {
 		if (!elInput.current) return;
 		const command = elInput.current.value;
 		if (!command) return;
 		elInput.current.value = '';
+
 		setCommands(prev => [...prev, { txt: command, time: Date.now() }]);
+		setCommandHistory?.(prev => [...prev, command]);
 	};
 
 	const clearConsole = (e: KeyboardEvent) => {
 		e.preventDefault();
+		commandIndex.current = 0;
+		if (elInput.current) elInput.current.value = '';
 		setCommands([]);
+	};
+
+	const restorePreviousCommand = (direction: number) => {
+		if (!elInput.current || !commandHistory) return;
+		const lastCommand = commandHistory[commandHistory.length - direction - commandIndex.current];
+		if (!lastCommand) return;
+		elInput.current.value = lastCommand;
+		commandIndex.current = commandIndex.current + direction;
+		setTimeout(() => {
+			elInput?.current?.setSelectionRange(lastCommand.length, lastCommand.length);
+		}, 0); // wait for value to be set
 	};
 
 	const getFormattedTime = (time: number) => {

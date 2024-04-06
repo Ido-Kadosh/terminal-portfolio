@@ -9,6 +9,7 @@ export interface ICommand {
 
 const Terminal = () => {
 	const [commands, setCommands] = useState<ICommand[]>([{ txt: 'help', time: Date.now() }]);
+	const [commandHistory, setCommandHistory] = useState<string[]>([]);
 	const scrollRef = useRef<HTMLDivElement>(null);
 	useLayoutEffect(() => {
 		if (scrollRef.current) {
@@ -39,7 +40,12 @@ const Terminal = () => {
 				{commands.map((command, idx) => (
 					<Breadcrumbs key={idx} command={command} setCommands={setCommands} />
 				))}
-				<Breadcrumbs showInput setCommands={setCommands} />
+				<Breadcrumbs
+					showInput
+					commandHistory={commandHistory}
+					setCommandHistory={setCommandHistory}
+					setCommands={setCommands}
+				/>
 			</div>
 		</main>
 	);
