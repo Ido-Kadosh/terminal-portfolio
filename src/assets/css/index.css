@@ -23,3 +23,7 @@ body {
 	-ms-overflow-style: none; /* for Internet Explorer and Edge */
 	scrollbar-width: none; /* for Firefox */
 }
+
+.grid-auto-flow {
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}

@@ -18,7 +18,7 @@ const Terminal = () => {
 	}, [commands]);
 
 	const getFormattedDate = () => {
-		const date = new Date(); // Today's date
+		const date = new Date();
 		const options: Intl.DateTimeFormatOptions = {
 			weekday: 'short',
 			year: 'numeric',
