@@ -5,6 +5,7 @@ import CommandIcon from '../assets/icons/command.svg?react';
 import FolderIcon from '../assets/icons/folder.svg?react';
 import CommandResult from './CommandResult';
 import { ICommand } from './Terminal';
+import useScreenSize from '../hooks/useScreenSize';
 interface PropTypes {
 	showInput?: boolean;
 	command?: ICommand;
@@ -16,6 +17,7 @@ interface PropTypes {
 const Breadcrumbs = ({ showInput, command, commandHistory, setCommands, setCommandHistory }: PropTypes) => {
 	const elInput = useRef<HTMLInputElement>(null);
 	const commandIndex = useRef<number>(0);
+	const screenSize = useScreenSize();
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -78,22 +80,26 @@ const Breadcrumbs = ({ showInput, command, commandHistory, setCommands, setComma
 
 	return (
 		<section className="my-4">
-			<div className="flex items-center">
+			<div className="flex items-center truncate">
 				<div className="w-5 h-1 bg-blue-600"></div>
-				<div className="flex gap-1 items-center bg-green-700 ps-2">
-					<CloverIcon />
-					<span>idokadosh</span>
-				</div>
-				<div className="w-5 h-7 z-10 bg-green-700 triangle"></div>
-				<div className="flex items-center text-black">
-					<div className="flex gap-1 items-center bg-blue-400 ps-8 -translate-x-5 pe-1">
-						<FolderIcon />
-						<span>/portfolio</span>
+				<div className="flex items-center">
+					<div className="flex gap-1 items-center bg-green-700 ps-2">
+						<CloverIcon />
+						<span>idokadosh</span>
 					</div>
-					<div className="w-5 h-7 z-10 -translate-x-5 bg-blue-400 triangle border-l border-blue-400"></div>
+					<div className="w-5 h-7 z-10 bg-green-700 triangle"></div>
 				</div>
-				{command && (
+				{
 					<div className="flex items-center text-black">
+						<div className="flex gap-1 items-center bg-blue-400 ps-8 -translate-x-5 pe-1">
+							<FolderIcon />
+							<span>/portfolio</span>
+						</div>
+						<div className="w-5 h-7 z-10 -translate-x-5 bg-blue-400 triangle border-l border-blue-400"></div>
+					</div>
+				}
+				{command && (
+					<div className="flex items-center text-black max-w-52 text-ellipsis">
 						<div className="flex gap-1 items-center bg-yellow-400 ps-8 -translate-x-10 pe-1">
 							<CommandIcon />
 							<span>{command.txt}</span>
@@ -112,14 +118,14 @@ const Breadcrumbs = ({ showInput, command, commandHistory, setCommands, setComma
 							ref={elInput}
 							autoFocus
 							className="bg-transparent border-none outline-none text-gray-300 w-full placeholder:tracking-wider placeholder:text-gray-600"
-							placeholder="try help, bio, skills, contact, about..."
+							placeholder={screenSize.width > 1024 ? 'try help, bio, skills, contact, about...' : 'type help for info'}
 							type="text"
 						></input>
 					)}
 					{command && (
-						<div className="flex justify-between items-end ">
-							<span>{command.txt}</span>
-							<span className="me-3 text-sm">{getFormattedTime(command.time)}</span>
+						<div className="flex justify-between items-end  ">
+							<span className="truncate">{command.txt}</span>
+							<span className="me-3 text-sm min-w-max">{getFormattedTime(command.time)}</span>
 						</div>
 					)}
 				</div>

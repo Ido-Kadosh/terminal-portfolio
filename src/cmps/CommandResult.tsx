@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaSass } from 'react-icons/fa';
 import {
 	SiExpress,
 	SiGithub,
@@ -10,19 +11,16 @@ import {
 	SiPostgresql,
 	SiReact,
 	SiRedux,
-	SiSass,
 	SiSocketdotio,
 	SiTailwindcss,
-	SiTypescript,
 } from 'react-icons/si';
+import { TbBrandTypescript } from 'react-icons/tb';
 import { ICommand } from './Terminal';
 import CheckMarkIcon from '/src/assets/icons/check-mark.svg?react';
-import { FaSass } from 'react-icons/fa';
-import { TbBrandTypescript } from 'react-icons/tb';
 
 const CommandResult = ({ command }: { command: ICommand }) => {
 	const renderComponent = () => {
-		switch (command.txt.toLowerCase()) {
+		switch (command.txt.toLowerCase().trim()) {
 			case 'help':
 				return <Help />;
 			case 'bio':
@@ -60,7 +58,7 @@ const Help = () => {
 
 			<div className="text-yellow-400">projects</div>
 			<div>
-				List of all projects <span className="text-green-400">[ Coming Soon! ]</span>
+				List of all projects <div className="text-green-400">[ Coming Soon! ]</div>
 			</div>
 
 			<div className="text-yellow-400">ctrl + l</div>
@@ -90,7 +88,7 @@ const Bio = () => {
 				Hi there! I am a full stack developer. Passionate about learning new things related to coding. Always looking
 				for ways to improve my crafts.
 			</span>
-			<div className="grid my-2 grid-cols-2">
+			<div className="grid my-2 grid-auto-flow">
 				<BioUrlSection Icon={SiGithub} url={'https://github.com/Ido-Kadosh'} title="Github" urlText="@Ido-kadosh" />
 				<BioUrlSection
 					Icon={SiLinkedin}
@@ -114,9 +112,9 @@ const BioUrlSection = ({ Icon, url, title, urlText }: BioUrlProps) => {
 		<div className="flex gap-2">
 			<div className="flex gap-1 ">
 				<Icon className="text-yellow-400 w-6 h-6" />
-				<span className="text-yellow-400">{title}</span>
+				<span className="text-yellow-400 min-w-max">{title}</span>
 			</div>
-			<a target="_blank" rel="noopener noreferrer" href={url} className="underline text-blue-300">
+			<a target="_blank" rel="noopener noreferrer" href={url} className="underline text-blue-300 min-w-max">
 				{urlText}
 			</a>
 		</div>
