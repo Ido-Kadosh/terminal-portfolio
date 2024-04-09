@@ -71,11 +71,7 @@ const Bio = () => {
 	return (
 		<section>
 			<div className="flex mb-3">
-				<img
-					className="rounded-full w-40 h-40 border-2 border-yellow-200"
-					src="/src/assets/img/ido-img.jpeg"
-					alt="Ido's image"
-				/>
+				<img className="rounded-full w-40 h-40 border-2 border-yellow-200" src="/ido-img.jpeg" alt="Ido's image" />
 				<div className="self-center ms-3">
 					<div className="flex gap-1 items-center">
 						<span className="text-2xl">Ido Kadosh</span>

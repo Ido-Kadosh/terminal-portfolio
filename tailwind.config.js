@@ -7,7 +7,7 @@ export default {
 		},
 		extend: {
 			backgroundImage: {
-				main: "url('src/assets/img/background.jpg')",
+				main: "url('/background.jpg')",
 			},
 		},
 	},
