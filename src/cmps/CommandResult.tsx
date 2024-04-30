@@ -57,9 +57,7 @@ const Help = () => {
 			<div>information about this site</div>
 
 			<div className="text-yellow-400">projects</div>
-			<div>
-				List of all projects <div className="text-green-400">[ Coming Soon! ]</div>
-			</div>
+			<div>List of all projects</div>
 
 			<div className="text-yellow-400">ctrl + l</div>
 			<div>clear terminal</div>
@@ -199,8 +197,33 @@ const About = () => {
 const Projects = () => {
 	return (
 		<section>
-			<span className="text-green-400">Coming Soon!</span>
+			<h1 className="text-yellow-400 text-2xl mb-4">Project list: (press image to enter site)</h1>
+			<div className="flex  flex-wrap gap-10">
+				<ProjectItem title="sunday" imgUrl="/sunday.png" url="https://sunday-twm1.onrender.com" />
+				<ProjectItem title="car rental" imgUrl="/car-rental.png" url="https://car-rental-teal-eight.vercel.app" />
+				<ProjectItem
+					title="terminal portfolio"
+					imgUrl="/terminal-portfolio.png"
+					url="https://en.wikipedia.org/wiki/Recursion"
+				/>
+			</div>
 		</section>
+	);
+};
+
+interface ProjectItemProps {
+	title: string;
+	imgUrl: string;
+	url: string;
+}
+const ProjectItem = ({ title, imgUrl, url }: ProjectItemProps) => {
+	return (
+		<div>
+			<h2 className="capitalize mb-1">{title}</h2>
+			<a target="_blank" rel="noopener noreferrer" href={url} className="underline text-blue-300 max-w-fit block">
+				<img src={imgUrl} alt={`${title} project`} className="max-h-60" />
+			</a>
+		</div>
 	);
 };
 

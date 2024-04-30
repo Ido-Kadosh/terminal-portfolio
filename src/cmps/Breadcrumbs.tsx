@@ -118,7 +118,9 @@ const Breadcrumbs = ({ showInput, command, commandHistory, setCommands, setComma
 							ref={elInput}
 							autoFocus
 							className="bg-transparent border-none outline-none text-gray-300 w-full placeholder:tracking-wider placeholder:text-gray-600"
-							placeholder={screenSize.width > 1024 ? 'try help, bio, skills, contact, about...' : 'type help for info'}
+							placeholder={
+								screenSize.width > 1024 ? 'try help, bio, skills, projects, contact...' : 'type help for info'
+							}
 							type="text"
 						></input>
 					)}
